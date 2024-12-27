@@ -1,7 +1,15 @@
+# https://caddyserver.com/docs/caddyfile-tutorial
+
+# https://caddyserver.com/docs/caddyfile/options#global-options
 {
-  email: kamaslau@dingtalk.com
+  debug
 }
 
 localhost {
   root * /srv
+  file_server
+}
+
+example.com, www.example.com {
+  reverse_proxy :3000 # served on port 3000
 }
