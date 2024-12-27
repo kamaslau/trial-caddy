@@ -3,5 +3,5 @@
 Caddyfile
 
 # Keep only the root page for demo
-/sites
+/sites/*
 !/sites/index.html
