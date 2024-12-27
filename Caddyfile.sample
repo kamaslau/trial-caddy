@@ -10,6 +10,7 @@ localhost {
   file_server
 }
 
+# Demo rules for reverse proxy
 example.com, www.example.com {
   reverse_proxy :3000 # served on port 3000
 }
