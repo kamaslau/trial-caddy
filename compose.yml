@@ -10,7 +10,7 @@ services:
       - caddy_config:/config
       - caddy_data:/data
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./site:/srv
+      - ./sites:/srv
 
 volumes:
   caddy_data:
