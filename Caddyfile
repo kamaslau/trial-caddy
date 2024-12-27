@@ -1,0 +1,7 @@
+{
+  email: kamaslau@dingtalk.com
+}
+
+localhost {
+  root * /srv
+}
