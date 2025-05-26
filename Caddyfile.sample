@@ -3,15 +3,11 @@
 # https://caddyserver.com/docs/caddyfile/options#global-options
 {
   debug
+
   admin off  # 在生产环境中禁用管理 API
   
   servers {
-    protocols h2 h3  # Only HTTP/2 and HTTP/3
-    experimental_http3  # Enable QUIC
-  }
-
-  tls {
-    protocols tls1.2 tls1.3
+    protocols h1 h2 h3  # Only HTTP/1.1, HTTP/2 and HTTP/3
   }
 }
 
@@ -27,9 +23,7 @@ localhost {
 
 # Demo rules for reverse proxy
 example.com, www.example.com {
-  reverse_proxy :3000 {
-    timeout 30s  # Caddy default is 60s
-  }
+  reverse_proxy :3000
     
   log {
     output file /var/log/caddy/example.com.log
