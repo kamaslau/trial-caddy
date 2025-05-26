@@ -3,14 +3,49 @@
 # https://caddyserver.com/docs/caddyfile/options#global-options
 {
   debug
+  admin off  # 在生产环境中禁用管理 API
+  
+  servers {
+    protocols h2 h3  # Only HTTP/2 and HTTP/3
+    experimental_http3  # Enable QUIC
+  }
+
+  tls {
+    protocols tls1.2 tls1.3
+  }
 }
 
 localhost {
   root * /srv
   file_server
+  encode gzip
+  log {
+    output file /var/log/caddy/access.log
+    format json
+  }
 }
 
 # Demo rules for reverse proxy
 example.com, www.example.com {
-  reverse_proxy :3000 # served on port 3000
+  reverse_proxy :3000 {
+    timeout 30s  # Caddy default is 60s
+  }
+    
+  log {
+    output file /var/log/caddy/example.com.log
+    format json
+  }
+  
+  header {
+    # 启用 HSTS
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    # 防止点击劫持
+    X-Frame-Options "SAMEORIGIN"
+    # XSS 保护
+    X-Content-Type-Options "nosniff"
+    # 内容安全策略
+    Content-Security-Policy "default-src 'self'"
+    # 禁用 HTTP/1.1
+    Connection "upgrade"
+  }
 }
