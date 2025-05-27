@@ -37,22 +37,14 @@ localhost {
 example.com,
 www.example.com {
   reverse_proxy :3000
-
-  log {
-    output file /var/log/caddy/example.com.log
-    format json
-  }
-
-  import headers
 }
 
-# Demo rules for redir directive
-# https://caddyserver.com/docs/caddyfile/directives/redir
+# Directive: redir
 kamaslau.com {
 	redir https://www.kamaslau.com{uri} permanent
 }
 
-# Demo rules for reverse proxy
+# Reverse proxy
 www.kamaslau.com {
   reverse_proxy :3000
 
@@ -62,4 +54,5 @@ www.kamaslau.com {
   }
 
   import headers
+  header -Content-Security-Policy  # remove imported value from the headers snippet
 }
