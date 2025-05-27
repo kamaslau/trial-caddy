@@ -4,6 +4,8 @@
 
 Setup DNS records for example.com (change this to actual domain name), make sure port 80 and 443 is available.
 
+Disable CloudFlare DNS Delegate until the SSLs are issued successfully.
+
 Clone this bootstrap repository:
 
 ```bash
