@@ -10,10 +10,11 @@ services:
     image: caddy
     restart: unless-stopped
     network_mode: host
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+    # not necessary if Caddy works under network_mode thus it listens to all capable ports
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    #   - "443:443/udp"
     volumes:
       - caddy_config:/config
       - caddy_data:/data

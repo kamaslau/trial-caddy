@@ -1,13 +1,21 @@
-# https://caddyserver.com/docs/caddyfile-tutorial
+# https://caddyserver.com/docs/caddyfile
 
 # https://caddyserver.com/docs/caddyfile/options#global-options
 {
   debug
 
   admin off  # 在生产环境中禁用管理 API
-  
-  servers {
-    protocols h1 h2 h3  # Only HTTP/1.1, HTTP/2 and HTTP/3
+}
+
+# https://caddyserver.com/docs/caddyfile/concepts#snippets
+(headers) {
+  # https://caddyserver.com/docs/caddyfile/directives/header
+  header {
+    Connection "upgrade"  # 禁用 HTTP/1.1
+    Content-Security-Policy "default-src 'self'"  # 内容安全策略
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"  # 启用 HSTS
+    X-Content-Type-Options "nosniff"  # XSS 保护
+    X-Frame-Options "SAMEORIGIN"  # 防止点击劫持
   }
 }
 
@@ -21,25 +29,37 @@ localhost {
   }
 }
 
-# Demo rules for reverse proxy
-example.com, www.example.com {
+######
+# Demo rules
+# https://caddyserver.com/docs/caddyfile/directives/
+######
+# Multiple domains
+example.com,
+www.example.com {
   reverse_proxy :3000
-    
+
   log {
     output file /var/log/caddy/example.com.log
     format json
   }
-  
-  header {
-    # 启用 HSTS
-    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-    # 防止点击劫持
-    X-Frame-Options "SAMEORIGIN"
-    # XSS 保护
-    X-Content-Type-Options "nosniff"
-    # 内容安全策略
-    Content-Security-Policy "default-src 'self'"
-    # 禁用 HTTP/1.1
-    Connection "upgrade"
+
+  import headers
+}
+
+# Demo rules for redir directive
+# https://caddyserver.com/docs/caddyfile/directives/redir
+kamaslau.com {
+	redir https://www.kamaslau.com{uri} permanent
+}
+
+# Demo rules for reverse proxy
+www.kamaslau.com {
+  reverse_proxy :3000
+
+  log {
+    output file /var/log/caddy/www.kamaslau.com.log
+    format json
   }
+
+  import headers
 }
