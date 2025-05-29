@@ -3,7 +3,7 @@
 # https://caddyserver.com/docs/caddyfile/options#global-options
 ######
 {
-  debug
+  # debug
 
   admin off  # Disable adminer API under production environment
 
@@ -21,7 +21,8 @@
 (headers) {
   # https://caddyserver.com/docs/caddyfile/directives/header
   header {
-    Content-Security-Policy "default-src 'self'" # Most Strict Policy, can be overrided by site block with - operator
+    # Content-Security-Policy "default-src 'self'" # Most Strict Policy, can be overrided by site block with - operator
+    Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
     Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"  # Enable HSTS
     X-Content-Type-Options "nosniff"  # XSS Protection
     X-Frame-Options "SAMEORIGIN"  # 防止点击劫持
@@ -30,7 +31,11 @@
 
 (logging) {
   log {
-    output file /var/log/caddy/access.log
+    output file /var/log/caddy/access.log {
+      roll_size 20MB
+      roll_keep 5
+      roll_keep_for 720h
+    }
     format json
   }
 }
