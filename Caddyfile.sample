@@ -5,7 +5,7 @@
 {
   debug
 
-  admin off  # 在生产环境中禁用管理 API
+  admin off  # Disable adminer API under production environment
 
   # TLS Options
   # email EMAIL_FOR_CA
@@ -31,7 +31,7 @@
 
 (logging) {
   log {
-    output file /var/log/caddy/{host}.log
+    output file /var/log/caddy/access.log
     format json
   }
 }

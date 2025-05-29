@@ -7,7 +7,7 @@ Setup DNS records for example.com (change this to actual domain name).
 To enable Caddy to successfully acquire CA:
 
 - Demo/Testing: Make port 80 and 443 available and disable CloudFlare DNS Delegate until CA(s) are issued successfully.
-- Production: Config [CloudFlare API Token](https://dash.cloudflare.com/profile/api-tokens) for 'All zones - DNS:Edit' in Caddyfile global rules, or per-server basis with 'example.com - DNS:Edit' previledge.
+- Production: Config [CloudFlare API Token](https://dash.cloudflare.com/profile/api-tokens) for 'All zones - DNS:Edit' in Caddyfile global rules, or per-server basis with 'example.com - DNS:Edit' previledge. Follow the instructions on [Docker Hub](https://hub.docker.com/_/caddy) to learn how build an image includes CloudFlare module.
 
 Clone and enter this repository:
 
@@ -36,3 +36,7 @@ docker compose pull && \
 docker compose down && \
 docker compose up -d
 ```
+
+## References
+
+- https://hub.docker.com/_/caddy
