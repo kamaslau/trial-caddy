@@ -7,9 +7,11 @@ volumes:
 services:
   caddy:
     container_name: caddy
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: caddy
+    # Pack in the custom modules, etc. Cloudflare DNS Provider
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     restart: unless-stopped
     environment:
       - CA_EMAIL=${CA_EMAIL}
