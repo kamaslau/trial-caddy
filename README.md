@@ -30,7 +30,6 @@ Start up with [Docker Compose](https://docs.docker.com/compose/):
 
 ```bash
 docker compose pull && \
-docker compose build && \
 docker compose up -d
 ```
 
@@ -38,7 +37,6 @@ Update existing composed containers using latest images:
 
 ```bash
 docker compose pull && \
-docker compose build && \
 docker compose down && \
 docker compose up -d
 ```
