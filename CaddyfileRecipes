@@ -1,0 +1,21 @@
+
+# Multiple domains
+example.com,
+www.example.com {
+  reverse_proxy :3000
+}
+
+# Directive: redir
+kamaslau.com {
+	redir https://www.kamaslau.com{uri} permanent
+}
+
+# Reverse proxy
+www.kamaslau.com {
+  reverse_proxy :3000
+
+  import logging
+
+  import headers
+  header -Content-Security-Policy  # remove imported value from the headers snippet
+}

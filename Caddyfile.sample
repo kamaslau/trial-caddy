@@ -1,6 +1,7 @@
-# https://caddyserver.com/docs/caddyfile
-
+######
+# Global Options
 # https://caddyserver.com/docs/caddyfile/options#global-options
+######
 {
   debug
 
@@ -11,52 +12,50 @@
   # dns cloudflare CLOUDFLARE_API_TOKEN_FOR_ALL_ZONES_DNS_EDIT  # If work behind cloudflare
 }
 
+
+######
+# Snippets
 # https://caddyserver.com/docs/caddyfile/concepts#snippets
+######
+
 (headers) {
   # https://caddyserver.com/docs/caddyfile/directives/header
   header {
-    Connection "upgrade"  # 禁用 HTTP/1.1
-    Content-Security-Policy "default-src 'self'"  # 内容安全策略
-    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"  # 启用 HSTS
-    X-Content-Type-Options "nosniff"  # XSS 保护
+    Connection "upgrade"  # Disable HTTP/1.1
+    Content-Security-Policy "default-src 'self'"
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"  # Enable HSTS
+    X-Content-Type-Options "nosniff"  # XSS Protection
     X-Frame-Options "SAMEORIGIN"  # 防止点击劫持
   }
 }
+
+(logging) {
+  log {
+    output file /var/log/caddy/{host}.log
+    format json
+  }
+}
+
+
+######
+# Sites
+######
 
 localhost {
   root * /srv
   file_server
   encode gzip
-  log {
-    output file /var/log/caddy/access.log
-    format json
-  }
+  import logging
 }
 
-######
-# Demo rules
-# https://caddyserver.com/docs/caddyfile/directives/
-######
-# Directive: redir
-kamaslau.com {
-	redir https://www.kamaslau.com{uri} permanent
+example.com {
+	redir https://www.example.com{uri} permanent
 }
 
-# Reverse proxy
-www.kamaslau.com {
-  reverse_proxy :3000
-
-  log {
-    output file /var/log/caddy/www.kamaslau.com.log
-    format json
-  }
-
-  import headers
-  header -Content-Security-Policy  # remove imported value from the headers snippet
-}
-
-# Multiple domains
-example.com,
 www.example.com {
   reverse_proxy :3000
+
+  import logging
+  import headers
+  header -Content-Security-Policy
 }
