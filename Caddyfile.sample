@@ -5,6 +5,10 @@
   debug
 
   admin off  # 在生产环境中禁用管理 API
+
+  # TLS Options
+  # email EMAIL_FOR_CA
+  # dns cloudflare CLOUDFLARE_API_TOKEN_FOR_ALL_ZONES_DNS_EDIT  # If work behind cloudflare
 }
 
 # https://caddyserver.com/docs/caddyfile/concepts#snippets
@@ -33,12 +37,6 @@ localhost {
 # Demo rules
 # https://caddyserver.com/docs/caddyfile/directives/
 ######
-# Multiple domains
-example.com,
-www.example.com {
-  reverse_proxy :3000
-}
-
 # Directive: redir
 kamaslau.com {
 	redir https://www.kamaslau.com{uri} permanent
@@ -55,4 +53,10 @@ www.kamaslau.com {
 
   import headers
   header -Content-Security-Policy  # remove imported value from the headers snippet
+}
+
+# Multiple domains
+example.com,
+www.example.com {
+  reverse_proxy :3000
 }

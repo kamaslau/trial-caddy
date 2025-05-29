@@ -2,9 +2,12 @@
 
 ## Usage
 
-Setup DNS records for example.com (change this to actual domain name), make sure port 80 and 443 is available.
+Setup DNS records for example.com (change this to actual domain name).
 
-Disable CloudFlare DNS Delegate until the SSLs are issued successfully.
+To enable Caddy to successfully acquire CA:
+
+- Demo/Testing: Make port 80 and 443 available and disable CloudFlare DNS Delegate until CA(s) are issued successfully.
+- Production: Config [CloudFlare API Token](https://dash.cloudflare.com/profile/api-tokens) for 'All zones - DNS:Edit' in Caddyfile global rules, or per-server basis with 'example.com - DNS:Edit' previledge.
 
 Clone this bootstrap repository:
 
