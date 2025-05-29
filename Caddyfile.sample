@@ -8,7 +8,7 @@
   admin off  # Disable adminer API under production environment
 
   # TLS Options
-  # email EMAIL_FOR_CA
+  # email {env.CA_EMAIL}
   # dns cloudflare {env.CLOUDFLARE_API_TOKEN}  # If work behind cloudflare
 }
 

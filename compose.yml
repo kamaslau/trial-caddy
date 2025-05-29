@@ -12,6 +12,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
+      - CA_EMAIL=${CA_EMAIL}
       - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     network_mode: host
     # not necessary if Caddy works under network_mode thus it listens to all capable ports
