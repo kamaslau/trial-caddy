@@ -9,7 +9,7 @@
 
   # TLS Options
   # email EMAIL_FOR_CA
-  # dns cloudflare CLOUDFLARE_API_TOKEN_FOR_ALL_ZONES_DNS_EDIT  # If work behind cloudflare
+  # dns cloudflare {env.CLOUDFLARE_API_TOKEN}  # If work behind cloudflare
 }
 
 

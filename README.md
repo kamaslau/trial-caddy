@@ -16,9 +16,12 @@ git clone git@github.com:kamaslau/trial-caddy.git
 cd trial-caddy
 ```
 
-Ready the [Caddyfile](https://caddyserver.com/docs/caddyfile):
+Ready the .env file and [Caddyfile](https://caddyserver.com/docs/caddyfile):
 
 ```bash
+cp .env.sample .env
+nano .env
+
 cp Caddyfile.sample Caddyfile
 nano Caddyfile
 ```
@@ -26,6 +29,8 @@ nano Caddyfile
 Start up with [Docker Compose](https://docs.docker.com/compose/):
 
 ```bash
+docker compose pull && \
+docker compose build && \
 docker compose up -d
 ```
 
@@ -33,6 +38,7 @@ Update existing composed containers using latest images:
 
 ```bash
 docker compose pull && \
+docker compose build && \
 docker compose down && \
 docker compose up -d
 ```

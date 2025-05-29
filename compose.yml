@@ -7,8 +7,12 @@ volumes:
 services:
   caddy:
     container_name: caddy
-    image: caddy
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     network_mode: host
     # not necessary if Caddy works under network_mode thus it listens to all capable ports
     # ports:
@@ -16,8 +20,8 @@ services:
     #   - "443:443"
     #   - "443:443/udp"
     volumes:
-      - caddy_config:/config
       - caddy_data:/data
+      - caddy_config:/config
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./sites:/srv:ro
     healthcheck:
