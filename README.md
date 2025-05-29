@@ -23,8 +23,16 @@ cp Caddyfile.sample Caddyfile
 nano Caddyfile
 ```
 
-Start up caddy:
+Start up with [Docker Compose](https://docs.docker.com/compose/)
 
 ```bash
+docker compose up -d
+```
+
+Update existing composed containers with latest images:
+
+```bash
+docker compose pull && \
+docker compose down && \
 docker compose up -d
 ```
