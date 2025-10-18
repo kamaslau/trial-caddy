@@ -1,8 +1,11 @@
 # trial-caddy
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Repository size](https://img.shields.io/github/repo-size/kamaslau/trial-caddy?color=56BEB8)
+
 ## Usage
 
-Setup DNS records for example.com (change this to actual domain name).
+Setup DNS records for example.com (change this with the actual domain name to be resolved).
 
 To enable Caddy to successfully acquire CA:
 
@@ -29,7 +32,6 @@ nano Caddyfile
 Start up with [Docker Compose](https://docs.docker.com/compose/):
 
 ```bash
-docker compose pull && \
 docker compose up -d
 ```
 
@@ -43,4 +45,5 @@ docker compose up -d
 
 ## References
 
-- https://hub.docker.com/_/caddy
+- [Official Documents](https://caddyserver.com/docs/)
+- [Caddy on Docker Hub](https://hub.docker.com/_/caddy)
