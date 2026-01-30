@@ -8,6 +8,8 @@ services:
   caddy:
     container_name: caddy
     image: caddy
+    # For built images served by Github Container Registry
+    # image: ghcr.io/owner/repository:latest
     # Pack in the custom modules, etc. Cloudflare DNS Provider
     # build:
     #   context: .
